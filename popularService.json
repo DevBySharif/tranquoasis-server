@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "serviceImage": "popularService1.jpg",
+    "serviceName": "Mindfulness Meditation",
+    "serviceDescription": "Calm your mind and reduce stress through guided meditation.",
+    "viewDetailButton": "Learn More",
+    "serviceProvider": {
+      "image": "instructor1.jpg",
+      "name": "Instructor 1"
+    },
+    "servicePrice": "$25"
+  },
+  {
+    "id": 2,
+    "serviceImage": "popularService2.jpg",
+    "serviceName": "Yoga Retreat",
+    "serviceDescription": "Revitalize your body and mind with a weekend of yoga and relaxation.",
+    "viewDetailButton": "Learn More",
+    "serviceProvider": {
+      "image": "instructor2.jpg",
+      "name": "Instructor 2"
+    },
+    "servicePrice": "$120"
+  },
+  {
+    "id": 3,
+    "serviceImage": "popularService3.jpg",
+    "serviceName": "Nature Immersion",
+    "serviceDescription": "Connect with nature and find serenity in the great outdoors.",
+    "viewDetailButton": "Learn More",
+    "serviceProvider": {
+      "image": "instructor3.jpg",
+      "name": "Instructor 3"
+    },
+    "servicePrice": "$85"
+  },
+  {
+    "id": 4,
+    "serviceImage": "popularService4.jpg",
+    "serviceName": "Art Therapy Workshop",
+    "serviceDescription": "Explore your creativity and emotions through therapeutic art sessions.",
+    "viewDetailButton": "Learn More",
+    "serviceProvider": {
+      "image": "instructor4.jpg",
+      "name": "Instructor 4"
+    },
+    "servicePrice": "$60"
+  },
+  {
+    "id": 5,
+    "serviceImage": "popularService5.jpg",
+    "serviceName": "Digital Detox Retreat",
+    "serviceDescription": "Unplug and find balance in a technology-free retreat experience.",
+    "viewDetailButton": "Learn More",
+    "serviceProvider": {
+      "image": "instructor5.jpg",
+      "name": "Instructor 5"
+    },
+    "servicePrice": "$150"
+  }
+]
