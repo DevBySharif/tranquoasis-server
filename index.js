@@ -58,8 +58,28 @@ async function run() {
 
       app.post('/api/v1/user/booked-service',async(req,res)=>{
         const newBookedService = req.body
-        console.log(newBookedService);
         const result = await BookedServiceCollection.insertOne(newBookedService)
+        res.send(result)
+      })
+
+      app.put('/api/v1/services/:id',async(req,res)=>{
+        const id = req.params.id
+        const service = req.body
+        console.log(service);
+        const filter = {_id: new ObjectId(id)}
+        const options= {upsert:true}
+        const updatedService = {
+          $set:{
+            serviceName:service.serviceName,
+            yourName:service.yourName,
+            yourEmail:service.yourEmail,
+            price:service.price,
+            serviceArea:service.serviceArea,
+            description:service.description,
+            photo:service.photo,
+          }
+        }
+        const result =await serviceCollection.updateOne(filter,updatedService,options)
         res.send(result)
       })
     
