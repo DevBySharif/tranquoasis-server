@@ -33,7 +33,7 @@ async function run() {
 
     // service related API
 
-    app.get('/api/v1/popular-services',async(req,res)=>{
+    app.get('/api/v1/services',async(req,res)=>{
         const cursor = serviceCollection.find()
         const result = await cursor.toArray()
         res.send(result)
