@@ -30,6 +30,7 @@ async function run() {
     await client.connect();
 
     const serviceCollection = client.db('tranquoasisDB').collection('services')
+    const BookedServiceCollection = client.db('tranquoasisDB').collection('BookedServices')
 
     // service related API
 
@@ -53,6 +54,14 @@ async function run() {
         res.send(result)
       })
 
+      // booking related API
+
+      app.post('/api/v1/user/booked-service',async(req,res)=>{
+        const newBookedService = req.body
+        console.log(newBookedService);
+        const result = await BookedServiceCollection.insertOne(newBookedService)
+        res.send(result)
+      })
     
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
