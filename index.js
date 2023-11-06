@@ -62,6 +62,12 @@ async function run() {
         res.send(result)
       })
 
+      app.get('/api/v1/user/booked-service',async(req,res)=>{
+        const cursor = BookedServiceCollection.find()
+        const result = await cursor.toArray()
+        res.send(result)
+      })
+
       app.put('/api/v1/services/:id',async(req,res)=>{
         const id = req.params.id
         const service = req.body
