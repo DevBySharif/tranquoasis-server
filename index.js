@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require("cors");
 require('dotenv').config()
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express()
 const port = process.env.PORT || 5005
 
@@ -43,6 +43,13 @@ async function run() {
         const newServices = req.body
         console.log(newServices);
         const result = await serviceCollection.insertOne(newServices)
+        res.send(result)
+      })
+
+      app.get('/api/v1/services/:id',async(req,res)=>{
+        const id = req.params.id
+        const query = {_id:new ObjectId(id)}
+        const result = await serviceCollection.findOne(query)
         res.send(result)
       })
 
