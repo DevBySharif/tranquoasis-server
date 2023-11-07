@@ -68,6 +68,33 @@ async function run() {
         res.send(result)
       })
 
+      app.patch('/api/v1/user/booked-service/:id',async(req,res)=>{
+        const id = req.params.id
+        const filter = {_id: new ObjectId(id)}
+        const updatedBooking = req.body
+        const updatedDoc = {
+          $set:{
+            status:updatedBooking.status
+          }
+        }
+        const result = await BookedServiceCollection.updateOne(filter,updatedDoc)
+        res.send(result)
+        console.log(updatedBooking);
+      })
+      app.patch('/api/v1/user/booked-service/:id',async(req,res)=>{
+        const id = req.params.id
+        const filter = {_id: new ObjectId(id)}
+        const updatedBooking = req.body
+        const updatedDoc = {
+          $set:{
+            status:updatedBooking.status
+          }
+        }
+        const result = await BookedServiceCollection.updateOne(filter,updatedDoc)
+        res.send(result)
+        console.log(updatedBooking);
+      })
+
       app.put('/api/v1/services/:id',async(req,res)=>{
         const id = req.params.id
         const service = req.body
