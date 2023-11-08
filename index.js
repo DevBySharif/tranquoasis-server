@@ -10,7 +10,8 @@ const port = process.env.PORT || 5005
 // middleware
 app.use(cors({
   origin:[
-    'http://localhost:5173'
+    'http://localhost:5173',
+    'https://tranquoasis.web.app'
   ],
   credentials:true
 }))
@@ -55,7 +56,7 @@ const verifyToken=(req,res,next)=>{
 async function run() {
   try {
    
-    await client.connect();
+    // await client.connect();
 
     const serviceCollection = client.db('tranquoasisDB').collection('services')
     const BookedServiceCollection = client.db('tranquoasisDB').collection('BookedServices')
@@ -93,16 +94,14 @@ async function run() {
         res.send(result)
       })
 
-      app.get('/api/v1/user/booked-service',logger,verifyToken,async(req,res)=>{
-        if(req.user.email !== req.query.email){
-          return res.status(403).send({message:'forbidden access'})
-        }
+      app.get('/api/v1/user/booked-service',async(req,res)=>{
+        
         const cursor = BookedServiceCollection.find()
         const result = await cursor.toArray()
         res.send(result)
       })
 
-      app.patch('/api/v1/user/booked-service/:id',logger,async(req,res)=>{
+      app.patch('/api/v1/user/booked-service/:id',async(req,res)=>{
         const id = req.params.id
         const filter = {_id: new ObjectId(id)}
         const updatedBooking = req.body
@@ -115,7 +114,7 @@ async function run() {
         res.send(result)
         console.log(updatedBooking);
       })
-      app.patch('/api/v1/user/booked-service/:id',logger,async(req,res)=>{
+      app.patch('/api/v1/user/booked-service/:id',async(req,res)=>{
         const id = req.params.id
         const filter = {_id: new ObjectId(id)}
         const updatedBooking = req.body
