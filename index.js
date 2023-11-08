@@ -85,10 +85,10 @@ async function run() {
 
       // booking related API
 
-      app.post('/api/v1/user/booked-service',logger,verifyToken,async(req,res)=>{
-        if(req.user.email !== req.query.email){
-          return res.status(403).send({message:'forbidden access'})
-        }
+      app.post('/api/v1/user/booked-service',async(req,res)=>{
+        // if(req.user.email !== req.query.email){
+        //   return res.status(403).send({message:'forbidden access'})
+        // }
         const newBookedService = req.body
         const result = await BookedServiceCollection.insertOne(newBookedService)
         res.send(result)
