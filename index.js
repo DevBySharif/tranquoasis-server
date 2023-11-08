@@ -32,6 +32,14 @@ const client = new MongoClient(uri, {
   }
 });
 
+const logger = (req,res,next)=>{
+  console.log(req.method,req.url);
+  next()
+}
+
+
+
+
 async function run() {
   try {
    
@@ -64,19 +72,19 @@ async function run() {
 
       // booking related API
 
-      app.post('/api/v1/user/booked-service',async(req,res)=>{
+      app.post('/api/v1/user/booked-service',logger,async(req,res)=>{
         const newBookedService = req.body
         const result = await BookedServiceCollection.insertOne(newBookedService)
         res.send(result)
       })
 
-      app.get('/api/v1/user/booked-service',async(req,res)=>{
+      app.get('/api/v1/user/booked-service',logger,async(req,res)=>{
         const cursor = BookedServiceCollection.find()
         const result = await cursor.toArray()
         res.send(result)
       })
 
-      app.patch('/api/v1/user/booked-service/:id',async(req,res)=>{
+      app.patch('/api/v1/user/booked-service/:id',logger,async(req,res)=>{
         const id = req.params.id
         const filter = {_id: new ObjectId(id)}
         const updatedBooking = req.body
@@ -89,7 +97,7 @@ async function run() {
         res.send(result)
         console.log(updatedBooking);
       })
-      app.patch('/api/v1/user/booked-service/:id',async(req,res)=>{
+      app.patch('/api/v1/user/booked-service/:id',logger,async(req,res)=>{
         const id = req.params.id
         const filter = {_id: new ObjectId(id)}
         const updatedBooking = req.body
@@ -132,7 +140,7 @@ async function run() {
       })
 
       // auth relatd API
-      app.post('/jwt',async(req,res)=>{
+      app.post('/jwt',logger,async(req,res)=>{
         const user = req.body
         const token = jwt.sign(user,process.env.ACCESS_TOKEN_SECRET,{expiresIn:'1h'})
         console.log('user for token',user);
