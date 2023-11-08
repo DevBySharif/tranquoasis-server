@@ -37,7 +37,19 @@ const logger = (req,res,next)=>{
   next()
 }
 
-
+const verifyToken=(req,res,next)=>{
+  const token = req?.cookies?.token
+  if(!token){
+    return res.status(401).send({message: 'Unauthorized access'})
+  }
+  jwt.verify(token,process.env.ACCESS_TOKEN_SECRET,(err,decoded)=>{
+    if(err){
+      return res.status(401).send({message:'Unauthorized Access'})
+    }
+    req.user = decoded
+    next()
+  })
+}
 
 
 async function run() {
@@ -72,13 +84,19 @@ async function run() {
 
       // booking related API
 
-      app.post('/api/v1/user/booked-service',logger,async(req,res)=>{
+      app.post('/api/v1/user/booked-service',logger,verifyToken,async(req,res)=>{
+        if(req.user.email !== req.query.email){
+          return res.status(403).send({message:'forbidden access'})
+        }
         const newBookedService = req.body
         const result = await BookedServiceCollection.insertOne(newBookedService)
         res.send(result)
       })
 
-      app.get('/api/v1/user/booked-service',logger,async(req,res)=>{
+      app.get('/api/v1/user/booked-service',logger,verifyToken,async(req,res)=>{
+        if(req.user.email !== req.query.email){
+          return res.status(403).send({message:'forbidden access'})
+        }
         const cursor = BookedServiceCollection.find()
         const result = await cursor.toArray()
         res.send(result)
@@ -140,7 +158,7 @@ async function run() {
       })
 
       // auth relatd API
-      app.post('/jwt',logger,async(req,res)=>{
+      app.post('/jwt',logger,verifyToken,async(req,res)=>{
         const user = req.body
         const token = jwt.sign(user,process.env.ACCESS_TOKEN_SECRET,{expiresIn:'1h'})
         console.log('user for token',user);
